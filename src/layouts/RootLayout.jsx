@@ -3,7 +3,6 @@ import { useEffect } from "react";
 import Navbar from "../components/Navbar";
 import Footer from "../components/Footer";
 import { useLocomotiveScroll } from "../hooks/useLocomotiveScroll";
-import "locomotive-scroll/dist/locomotive-scroll.css";
 
 const RootLayout = () => {
   const location = useLocation();
