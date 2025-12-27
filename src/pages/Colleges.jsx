@@ -1,221 +1,64 @@
-import {
-  GraduationCap,
-  BookOpen,
-  School,
-  Building,
-  Users,
-  Trophy,
-  Book,
-} from "lucide-react";
-import Section from "../components/ui/Section";
+import { Link } from "react-router-dom";
 import Card from "../components/ui/Card";
-import Button from "../components/ui/Button";
-import Stats from "../components/ui/Stats";
+import Section from "../components/ui/Section";
 
-const Colleges = () => {
+export default function Colleges() {
   const colleges = [
     {
-      name: "Law Campus",
-      icon: GraduationCap,
-      programs: ["Bachelor of Laws (LLB)", "Master of Laws (LLM)"],
-      description:
-        "Our Law Campus provides comprehensive legal education with a focus on both theoretical knowledge and practical skills. Students benefit from mock courts, legal clinics, and expert faculty.",
-      features: [
-        "State-of-the-art Law Library",
-        "Moot Court Facility",
-        "Legal Aid Clinic",
-        "Distinguished Faculty",
-      ],
-      image: "https://placehold.co/800x400?text=Law+Campus",
-    },
-    {
+      id: 1,
       name: "Main Campus",
-      icon: BookOpen,
-      programs: [
-        "Bachelor of Science (BS)",
-        "Master of Arts (MA)",
-        "Bachelor of Arts (BA)",
-      ],
+      path: "/campuses/main",
       description:
-        "The Main Campus offers a wide range of undergraduate and graduate programs in sciences and arts. Our focus is on providing quality education with modern facilities.",
-      features: [
-        "Well-equipped Laboratories",
-        "Research Facilities",
-        "Digital Library",
-        "Career Counseling",
-      ],
-      image: "https://placehold.co/800x400?text=Main+Campus",
+        "Our flagship campus offering comprehensive academic programs",
+      image: "/src/assets/main-campus.jpg",
     },
     {
+      id: 2,
+      name: "Law College",
+      path: "/campuses/law",
+      description: "Dedicated to legal education and justice studies",
+      image: "/src/assets/law-college.jpg",
+    },
+    {
+      id: 3,
       name: "Hala Campus",
-      icon: School,
-      programs: [
-        "FSc (Pre-Medical)",
-        "FSc (Pre-Engineering)",
-        "FA (Arts)",
-        "ICS (Computer Science)",
-      ],
-      description:
-        "Our Hala Campus prepares students for higher education with strong foundation in sciences and arts. We focus on both academic excellence and personal growth.",
-      features: [
-        "Modern Science Labs",
-        "Computer Labs",
-        "Sports Facilities",
-        "Experienced Faculty",
-      ],
-      image: "https://placehold.co/800x400?text=Hala+Campus",
-    },
-  ];
-
-  const stats = [
-    {
-      icon: Building,
-      value: "3",
-      label: "Campuses",
-    },
-    {
-      icon: Users,
-      value: "5000+",
-      label: "Students",
-    },
-    {
-      icon: Trophy,
-      value: "30+",
-      label: "Years of Excellence",
-    },
-    {
-      icon: Book,
-      value: "50+",
-      label: "Programs",
+      path: "/campuses/hala",
+      description: "Modern campus with state-of-the-art facilities",
+      image: "/src/assets/hala-campus.jpg",
     },
   ];
 
   return (
-    <div className="min-h-screen bg-gray-50">
-      <Section background="blue" spacing="large">
-        <div className="text-center">
-          <h1 className="text-4xl lg:text-5xl font-bold mb-6">Our Colleges</h1>
-          <p className="text-xl text-gray-100 max-w-3xl mx-auto">
-            Discover our range of educational institutions offering quality
-            education across various disciplines
+    <Section className="py-20 bg-gray-50">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div className="text-center mb-12">
+          <h1 className="text-4xl font-bold text-gray-900 mb-4">
+            Our Colleges
+          </h1>
+          <p className="text-lg text-gray-600">
+            Explore our diverse range of colleges and campuses
           </p>
-          <div className="mt-12">
-            <Stats items={stats} variant="dark" />
-          </div>
         </div>
-      </Section>
 
-      <Section spacing="large">
-        <div className="space-y-20">
-          {colleges.map((college, index) => (
-            <Card key={college.name} className="overflow-hidden">
-              <div
-                className={`flex flex-col lg:flex-row gap-12 ${
-                  index % 2 === 1 ? "lg:flex-row-reverse" : ""
-                }`}
-              >
-                {/* College Image */}
-                <div className="w-full lg:w-1/2">
-                  <img
-                    src={college.image}
-                    alt={college.name}
-                    className="rounded-lg shadow-lg w-full"
-                  />
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+          {colleges.map((college) => (
+            <Link to={college.path} key={college.id}>
+              <Card className="h-full hover:shadow-lg transition-shadow cursor-pointer">
+                <div className="h-48 bg-gradient-to-br from-blue-400 to-blue-600 rounded-lg mb-4 flex items-center justify-center text-white text-center p-4">
+                  <span className="text-lg font-semibold">{college.name}</span>
                 </div>
-
-                {/* College Information */}
-                <div className="w-full lg:w-1/2 space-y-6">
-                  <div className="flex items-center gap-3">
-                    <college.icon className="h-8 w-8 text-blue-600" />
-                    <h2 className="text-3xl font-bold text-gray-900">
-                      {college.name}
-                    </h2>
-                  </div>
-
-                  <p className="text-gray-600 text-lg">{college.description}</p>
-
-                  {/* Programs */}
-                  <Card className="bg-gray-50">
-                    <Card.Title className="flex items-center gap-2">
-                      <Book className="h-5 w-5 text-blue-600" />
-                      Programs Offered
-                    </Card.Title>
-                    <Card.Body>
-                      <ul className="grid grid-cols-1 sm:grid-cols-2 gap-2">
-                        {college.programs.map((program) => (
-                          <li
-                            key={program}
-                            className="flex items-center text-gray-600"
-                          >
-                            <span className="h-2 w-2 bg-blue-600 rounded-full mr-2"></span>
-                            {program}
-                          </li>
-                        ))}
-                      </ul>
-                    </Card.Body>
-                  </Card>
-
-                  {/* Features */}
-                  <Card className="bg-gray-50">
-                    <Card.Title className="flex items-center gap-2">
-                      <Trophy className="h-5 w-5 text-blue-600" />
-                      Key Features
-                    </Card.Title>
-                    <Card.Body>
-                      <ul className="grid grid-cols-1 sm:grid-cols-2 gap-2">
-                        {college.features.map((feature) => (
-                          <li
-                            key={feature}
-                            className="flex items-center text-gray-600"
-                          >
-                            <span className="h-2 w-2 bg-blue-600 rounded-full mr-2"></span>
-                            {feature}
-                          </li>
-                        ))}
-                      </ul>
-                    </Card.Body>
-                  </Card>
-
-                  {/* Actions */}
-                  <div className="flex gap-4">
-                    <Button size="lg">View Details</Button>
-                    <Button variant="outline" size="lg">
-                      Apply Now
-                    </Button>
-                  </div>
-                </div>
-              </div>
-            </Card>
+                <h3 className="text-xl font-bold text-gray-900 mb-2">
+                  {college.name}
+                </h3>
+                <p className="text-gray-600 mb-4">{college.description}</p>
+                <span className="text-blue-600 font-semibold hover:text-blue-700">
+                  Learn More →
+                </span>
+              </Card>
+            </Link>
           ))}
         </div>
-      </Section>
-
-      {/* Call to Action */}
-      <Section background="blue" spacing="large">
-        <div className="text-center">
-          <h2 className="text-3xl font-bold mb-6">
-            Ready to Begin Your Journey?
-          </h2>
-          <p className="text-xl text-gray-100 mb-8 max-w-2xl mx-auto">
-            Take the first step towards your future. Apply now to join one of
-            our prestigious colleges.
-          </p>
-          <div className="flex justify-center gap-4">
-            <Button variant="secondary" size="lg">
-              Download Prospectus
-            </Button>
-            <Button
-              variant="outline"
-              size="lg"
-              className="border-white text-white hover:bg-white hover:text-blue-600"
-            >
-              Apply Now
-            </Button>
-          </div>
-        </div>
-      </Section>
-    </div>
+      </div>
+    </Section>
   );
-};
-
-export default Colleges;
+}

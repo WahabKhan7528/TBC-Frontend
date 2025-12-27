@@ -4,6 +4,7 @@ import Hero from "../components/ui/Hero";
 import Section from "../components/ui/Section";
 import Card from "../components/ui/Card";
 import Button from "../components/ui/Button";
+import { motion } from "framer-motion";
 
 const NewsAndEvents = () => {
   const [activeTab, setActiveTab] = useState("all");
@@ -152,36 +153,41 @@ const NewsAndEvents = () => {
             <div className="space-y-6">
               <h2 className="text-2xl font-bold text-gray-900">Latest News</h2>
               <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                {filteredNews.map((news) => (
-                  <Card
+                {filteredNews.map((news, idx) => (
+                  <motion.div
                     key={news.id}
-                    className="flex flex-col overflow-hidden hover:shadow-lg transition"
+                    initial={{ opacity: 0, x: -20 }}
+                    whileInView={{ opacity: 1, x: 0 }}
+                    transition={{ duration: 0.5, delay: idx * 0.1 }}
+                    viewport={{ once: true }}
                   >
-                    <img
-                      src={news.image}
-                      alt={news.title}
-                      className="w-full h-48 object-cover"
-                    />
-                    <div className="p-4 flex flex-col flex-grow">
-                      <div className="flex items-center gap-2 mb-2">
-                        <span className="text-xs font-semibold px-3 py-1 rounded-full bg-purple-100 text-purple-700">
-                          {news.category}
-                        </span>
-                        <span className="text-xs text-gray-500">
-                          {news.date}
-                        </span>
+                    <Card className="flex flex-col overflow-hidden hover:shadow-lg transition">
+                      <img
+                        src={news.image}
+                        alt={news.title}
+                        className="w-full h-48 object-cover"
+                      />
+                      <div className="p-4 flex flex-col flex-grow">
+                        <div className="flex items-center gap-2 mb-2">
+                          <span className="text-xs font-semibold px-3 py-1 rounded-full bg-purple-100 text-purple-700">
+                            {news.category}
+                          </span>
+                          <span className="text-xs text-gray-500">
+                            {news.date}
+                          </span>
+                        </div>
+                        <h3 className="text-lg font-semibold text-gray-900 mb-2">
+                          {news.title}
+                        </h3>
+                        <p className="text-sm text-gray-600 mb-4 flex-grow">
+                          {news.excerpt}
+                        </p>
+                        <button className="flex items-center gap-2 text-purple-700 hover:text-purple-800 font-semibold text-sm">
+                          Read More <ArrowRight size={16} />
+                        </button>
                       </div>
-                      <h3 className="text-lg font-semibold text-gray-900 mb-2">
-                        {news.title}
-                      </h3>
-                      <p className="text-sm text-gray-600 mb-4 flex-grow">
-                        {news.excerpt}
-                      </p>
-                      <button className="flex items-center gap-2 text-purple-700 hover:text-purple-800 font-semibold text-sm">
-                        Read More <ArrowRight size={16} />
-                      </button>
-                    </div>
-                  </Card>
+                    </Card>
+                  </motion.div>
                 ))}
               </div>
             </div>
@@ -194,52 +200,57 @@ const NewsAndEvents = () => {
                 Upcoming Events
               </h2>
               <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                {filteredEvents.map((event) => (
-                  <Card
+                {filteredEvents.map((event, idx) => (
+                  <motion.div
                     key={event.id}
-                    className="flex flex-col overflow-hidden hover:shadow-lg transition"
+                    initial={{ opacity: 0, x: 20 }}
+                    whileInView={{ opacity: 1, x: 0 }}
+                    transition={{ duration: 0.5, delay: idx * 0.1 }}
+                    viewport={{ once: true }}
                   >
-                    <img
-                      src={event.image}
-                      alt={event.title}
-                      className="w-full h-48 object-cover"
-                    />
-                    <div className="p-4 flex flex-col flex-grow">
-                      <div className="flex items-center gap-2 mb-2">
-                        <span className="text-xs font-semibold px-3 py-1 rounded-full bg-emerald-100 text-emerald-700">
-                          {event.category}
-                        </span>
-                        <span className="text-xs text-gray-500">
-                          {event.status}
-                        </span>
-                      </div>
-                      <h3 className="text-lg font-semibold text-gray-900 mb-3">
-                        {event.title}
-                      </h3>
+                    <Card className="flex flex-col overflow-hidden hover:shadow-lg transition">
+                      <img
+                        src={event.image}
+                        alt={event.title}
+                        className="w-full h-48 object-cover"
+                      />
+                      <div className="p-4 flex flex-col flex-grow">
+                        <div className="flex items-center gap-2 mb-2">
+                          <span className="text-xs font-semibold px-3 py-1 rounded-full bg-emerald-100 text-emerald-700">
+                            {event.category}
+                          </span>
+                          <span className="text-xs text-gray-500">
+                            {event.status}
+                          </span>
+                        </div>
+                        <h3 className="text-lg font-semibold text-gray-900 mb-3">
+                          {event.title}
+                        </h3>
 
-                      <div className="space-y-2 mb-4 text-sm text-gray-600">
-                        <div className="flex items-center gap-2">
-                          <Calendar size={16} className="text-purple-700" />
-                          <span>{event.date}</span>
+                        <div className="space-y-2 mb-4 text-sm text-gray-600">
+                          <div className="flex items-center gap-2">
+                            <Calendar size={16} className="text-purple-700" />
+                            <span>{event.date}</span>
+                          </div>
+                          <div className="flex items-center gap-2">
+                            <Clock size={16} className="text-purple-700" />
+                            <span>{event.time}</span>
+                          </div>
+                          <div className="flex items-center gap-2">
+                            <MapPin size={16} className="text-purple-700" />
+                            <span>{event.location}</span>
+                          </div>
                         </div>
-                        <div className="flex items-center gap-2">
-                          <Clock size={16} className="text-purple-700" />
-                          <span>{event.time}</span>
-                        </div>
-                        <div className="flex items-center gap-2">
-                          <MapPin size={16} className="text-purple-700" />
-                          <span>{event.location}</span>
-                        </div>
-                      </div>
 
-                      <p className="text-sm text-gray-600 mb-4 flex-grow">
-                        {event.description}
-                      </p>
-                      <button className="px-4 py-2 bg-purple-700 text-white rounded-lg text-sm font-semibold hover:bg-purple-800 w-full">
-                        Learn More
-                      </button>
-                    </div>
-                  </Card>
+                        <p className="text-sm text-gray-600 mb-4 flex-grow">
+                          {event.description}
+                        </p>
+                        <button className="px-4 py-2 bg-purple-700 text-white rounded-lg text-sm font-semibold hover:bg-purple-800 w-full">
+                          Learn More
+                        </button>
+                      </div>
+                    </Card>
+                  </motion.div>
                 ))}
               </div>
             </div>

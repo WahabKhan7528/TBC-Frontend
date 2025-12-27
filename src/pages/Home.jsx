@@ -8,8 +8,12 @@ import {
   Phone,
   MapPin,
   CheckCircle,
+  Building,
+  Book,
+  School,
 } from "lucide-react";
 import { Link, useNavigate } from "react-router-dom";
+import { motion } from "framer-motion";
 import Hero from "../components/ui/Hero";
 import Section from "../components/ui/Section";
 import Card from "../components/ui/Card";
@@ -20,6 +24,60 @@ import Slider from "../components/ui/Slider";
 
 const Home = () => {
   const navigate = useNavigate();
+
+  const collegesData = [
+    {
+      name: "Law Campus",
+      icon: GraduationCap,
+      programs: ["Bachelor of Laws (LLB)", "Master of Laws (LLM)"],
+      description:
+        "Our Law Campus provides comprehensive legal education with a focus on both theoretical knowledge and practical skills. Students benefit from mock courts, legal clinics, and expert faculty.",
+      features: [
+        "State-of-the-art Law Library",
+        "Moot Court Facility",
+        "Legal Aid Clinic",
+        "Distinguished Faculty",
+      ],
+      image: "https://placehold.co/800x400?text=Law+Campus",
+    },
+    {
+      name: "Main Campus",
+      icon: BookOpen,
+      programs: [
+        "Bachelor of Science (BS)",
+        "Master of Arts (MA)",
+        "Bachelor of Arts (BA)",
+      ],
+      description:
+        "The Main Campus offers a wide range of undergraduate and graduate programs in sciences and arts. Our focus is on providing quality education with modern facilities.",
+      features: [
+        "Well-equipped Laboratories",
+        "Research Facilities",
+        "Digital Library",
+        "Career Counseling",
+      ],
+      image: "https://placehold.co/800x400?text=Main+Campus",
+    },
+    {
+      name: "Hala Campus",
+      icon: School,
+      programs: [
+        "FSc (Pre-Medical)",
+        "FSc (Pre-Engineering)",
+        "FA (Arts)",
+        "ICS (Computer Science)",
+      ],
+      description:
+        "Our Hala Campus prepares students for higher education with strong foundation in sciences and arts. We focus on both academic excellence and personal growth.",
+      features: [
+        "Modern Science Labs",
+        "Computer Labs",
+        "Sports Facilities",
+        "Experienced Faculty",
+      ],
+      image: "https://placehold.co/800x400?text=Hala+Campus",
+    },
+  ];
 
   const colleges = [
     {
@@ -138,51 +196,6 @@ const Home = () => {
         />
       </Section>
 
-      <Section background="gray">
-        <Section.Header title="Our Colleges" />
-        <Slider>
-          {colleges.map((college) => (
-            <Card
-              key={college.name}
-              hover
-              className="min-w-[300px] md:min-w-[350px]"
-            >
-              <img
-                src={college.image}
-                alt={college.name}
-                className="w-full h-48 object-cover rounded-t-lg"
-              />
-              <Card.Body>
-                <Card.Title>{college.name}</Card.Title>
-                <p className="text-gray-600 mb-4">{college.description}</p>
-                <Button
-                  variant="outline"
-                  as={Link}
-                  to={college.path}
-                  className="inline-flex items-center gap-2"
-                >
-                  Learn More <ArrowRight className="h-4 w-4" />
-                </Button>
-              </Card.Body>
-            </Card>
-          ))}
-        </Slider>
-      </Section>
-
-      <Section background="white">
-        <Section.Header title="Student Testimonials" />
-        <Slider>
-          {testimonials.map((testimonial) => (
-            <div
-              key={testimonial.name}
-              className="min-w-[300px] md:min-w-[350px]"
-            >
-              <TestimonialCard {...testimonial} />
-            </div>
-          ))}
-        </Slider>
-      </Section>
-
       <Section background="white">
         <Section.Header
           title="About Us"
@@ -224,6 +237,115 @@ const Home = () => {
             </Button>
           </div>
         </div>
+      </Section>
+
+      <Section spacing="large">
+        <div className="space-y-20">
+          {collegesData.map((college, index) => (
+            <motion.div
+              key={college.name}
+              initial={{ opacity: 0, y: 50 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.6, delay: index * 0.2 }}
+              viewport={{ once: true }}
+            >
+              <Card className="overflow-hidden">
+                <div
+                  className={`flex flex-col lg:flex-row gap-12 ${
+                    index % 2 === 1 ? "lg:flex-row-reverse" : ""
+                  }`}
+                >
+                  {/* College Image */}
+                  <div className="w-full lg:w-1/2">
+                    <img
+                      src={college.image}
+                      alt={college.name}
+                      className="rounded-lg shadow-lg w-full"
+                    />
+                  </div>
+
+                  {/* College Information */}
+                  <div className="w-full lg:w-1/2 space-y-6">
+                    <div className="flex items-center gap-3">
+                      <college.icon className="h-8 w-8 text-primary-600" />
+                      <h2 className="text-3xl font-bold text-gray-900">
+                        {college.name}
+                      </h2>
+                    </div>
+
+                    <p className="text-gray-600 text-lg">
+                      {college.description}
+                    </p>
+
+                    {/* Programs */}
+                    <Card className="bg-gray-50">
+                      <Card.Title className="flex items-center gap-2">
+                        <Book className="h-5 w-5 text-primary-600" />
+                        Programs Offered
+                      </Card.Title>
+                      <Card.Body>
+                        <ul className="grid grid-cols-1 sm:grid-cols-2 gap-2">
+                          {college.programs.map((program) => (
+                            <li
+                              key={program}
+                              className="flex items-center text-gray-600"
+                            >
+                              <span className="h-2 w-2 bg-primary-600 rounded-full mr-2"></span>
+                              {program}
+                            </li>
+                          ))}
+                        </ul>
+                      </Card.Body>
+                    </Card>
+
+                    {/* Features */}
+                    <Card className="bg-gray-50">
+                      <Card.Title className="flex items-center gap-2">
+                        <Trophy className="h-5 w-5 text-primary-600" />
+                        Key Features
+                      </Card.Title>
+                      <Card.Body>
+                        <ul className="grid grid-cols-1 sm:grid-cols-2 gap-2">
+                          {college.features.map((feature) => (
+                            <li
+                              key={feature}
+                              className="flex items-center text-gray-600"
+                            >
+                              <span className="h-2 w-2 bg-primary-600 rounded-full mr-2"></span>
+                              {feature}
+                            </li>
+                          ))}
+                        </ul>
+                      </Card.Body>
+                    </Card>
+
+                    {/* Actions */}
+                    <div className="flex gap-4">
+                      <Button size="lg">View Details</Button>
+                      <Button variant="outline" size="lg">
+                        Apply Now
+                      </Button>
+                    </div>
+                  </div>
+                </div>
+              </Card>
+            </motion.div>
+          ))}
+        </div>
+      </Section>
+
+      <Section background="white">
+        <Section.Header title="Student Testimonials" />
+        <Slider>
+          {testimonials.map((testimonial) => (
+            <div
+              key={testimonial.name}
+              className="min-w-[300px] md:min-w-[350px]"
+            >
+              <TestimonialCard {...testimonial} />
+            </div>
+          ))}
+        </Slider>
       </Section>
 
       <Section background="gray">
@@ -323,6 +445,131 @@ const Home = () => {
             </form>
           </Card.Body>
         </Card>
+      </Section>
+
+      <Section background="white">
+        <Section.Header
+          title="Frequently Asked Questions"
+          description="Find answers to common questions about our colleges and programs"
+        />
+        <div className="grid md:grid-cols-2 gap-6 max-w-4xl mx-auto">
+          <Card className="hover">
+            <Card.Body>
+              <div className="flex items-start gap-4">
+                <div className="flex-shrink-0">
+                  <CheckCircle className="h-6 w-6 text-primary-600 mt-1" />
+                </div>
+                <div>
+                  <Card.Title className="text-lg mb-2">
+                    What programs are offered?
+                  </Card.Title>
+                  <p className="text-gray-600 text-sm">
+                    We offer 50+ programs ranging from FSc and FA to BA, BS, MA,
+                    LLB, and LLM across our three campuses.
+                  </p>
+                </div>
+              </div>
+            </Card.Body>
+          </Card>
+
+          <Card className="hover">
+            <Card.Body>
+              <div className="flex items-start gap-4">
+                <div className="flex-shrink-0">
+                  <CheckCircle className="h-6 w-6 text-primary-600 mt-1" />
+                </div>
+                <div>
+                  <Card.Title className="text-lg mb-2">
+                    How do I apply for admission?
+                  </Card.Title>
+                  <p className="text-gray-600 text-sm">
+                    You can apply online through our admissions portal or visit
+                    our campuses directly. Our admission counselors will guide
+                    you through the process.
+                  </p>
+                </div>
+              </div>
+            </Card.Body>
+          </Card>
+
+          <Card className="hover">
+            <Card.Body>
+              <div className="flex items-start gap-4">
+                <div className="flex-shrink-0">
+                  <CheckCircle className="h-6 w-6 text-primary-600 mt-1" />
+                </div>
+                <div>
+                  <Card.Title className="text-lg mb-2">
+                    What are the campus facilities?
+                  </Card.Title>
+                  <p className="text-gray-600 text-sm">
+                    All campuses feature modern laboratories, libraries,
+                    computer labs, sports facilities, and recreational areas for
+                    student development.
+                  </p>
+                </div>
+              </div>
+            </Card.Body>
+          </Card>
+
+          <Card className="hover">
+            <Card.Body>
+              <div className="flex items-start gap-4">
+                <div className="flex-shrink-0">
+                  <CheckCircle className="h-6 w-6 text-primary-600 mt-1" />
+                </div>
+                <div>
+                  <Card.Title className="text-lg mb-2">
+                    Do you offer scholarships?
+                  </Card.Title>
+                  <p className="text-gray-600 text-sm">
+                    Yes, we offer merit-based and need-based scholarships.
+                    Contact our financial aid office for more information.
+                  </p>
+                </div>
+              </div>
+            </Card.Body>
+          </Card>
+
+          <Card className="hover">
+            <Card.Body>
+              <div className="flex items-start gap-4">
+                <div className="flex-shrink-0">
+                  <CheckCircle className="h-6 w-6 text-primary-600 mt-1" />
+                </div>
+                <div>
+                  <Card.Title className="text-lg mb-2">
+                    What is the student-to-faculty ratio?
+                  </Card.Title>
+                  <p className="text-gray-600 text-sm">
+                    We maintain a favorable student-to-faculty ratio to ensure
+                    personalized attention and quality education for every
+                    student.
+                  </p>
+                </div>
+              </div>
+            </Card.Body>
+          </Card>
+
+          <Card className="hover">
+            <Card.Body>
+              <div className="flex items-start gap-4">
+                <div className="flex-shrink-0">
+                  <CheckCircle className="h-6 w-6 text-primary-600 mt-1" />
+                </div>
+                <div>
+                  <Card.Title className="text-lg mb-2">
+                    Are there international partnerships?
+                  </Card.Title>
+                  <p className="text-gray-600 text-sm">
+                    Yes, we have partnerships with international universities
+                    for exchange programs, collaborations, and accreditation.
+                  </p>
+                </div>
+              </div>
+            </Card.Body>
+          </Card>
+        </div>
       </Section>
     </div>
   );

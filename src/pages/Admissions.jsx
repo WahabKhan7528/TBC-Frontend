@@ -1,4 +1,5 @@
 import { CheckCircle, AlertCircle } from "lucide-react";
+import { motion } from "framer-motion";
 
 const Admissions = () => {
   const admissionSteps = [
@@ -75,8 +76,12 @@ const Admissions = () => {
           </h2>
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
             {admissionSteps.map((step, index) => (
-              <div
+              <motion.div
                 key={step.title}
+                initial={{ opacity: 0, y: 30 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.5, delay: index * 0.1 }}
+                viewport={{ once: true }}
                 className="bg-gray-50 rounded-lg p-6 relative"
               >
                 <div className="absolute -top-4 left-6 bg-blue-600 text-white w-8 h-8 rounded-full flex items-center justify-center font-bold">
@@ -84,7 +89,7 @@ const Admissions = () => {
                 </div>
                 <h3 className="text-xl font-bold mb-3 mt-2">{step.title}</h3>
                 <p className="text-gray-600">{step.description}</p>
-              </div>
+              </motion.div>
             ))}
           </div>
         </div>
@@ -98,7 +103,13 @@ const Admissions = () => {
           </h2>
           <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
             {/* Required Documents */}
-            <div className="bg-white rounded-lg p-8 shadow-sm">
+            <motion.div
+              initial={{ opacity: 0, x: -30 }}
+              whileInView={{ opacity: 1, x: 0 }}
+              transition={{ duration: 0.6 }}
+              viewport={{ once: true }}
+              className="bg-white rounded-lg p-8 shadow-sm"
+            >
               <h3 className="text-2xl font-bold mb-6 flex items-center">
                 <CheckCircle className="h-6 w-6 text-green-500 mr-2" />
                 Required Documents
@@ -111,10 +122,16 @@ const Admissions = () => {
                   </li>
                 ))}
               </ul>
-            </div>
+            </motion.div>
 
             {/* Eligibility Criteria */}
-            <div className="bg-white rounded-lg p-8 shadow-sm">
+            <motion.div
+              initial={{ opacity: 0, x: 30 }}
+              whileInView={{ opacity: 1, x: 0 }}
+              transition={{ duration: 0.6, delay: 0.2 }}
+              viewport={{ once: true }}
+              className="bg-white rounded-lg p-8 shadow-sm"
+            >
               <h3 className="text-2xl font-bold mb-6 flex items-center">
                 <AlertCircle className="h-6 w-6 text-blue-500 mr-2" />
                 Eligibility Criteria
@@ -130,7 +147,7 @@ const Admissions = () => {
                   </li>
                 ))}
               </ul>
-            </div>
+            </motion.div>
           </div>
         </div>
       </section>

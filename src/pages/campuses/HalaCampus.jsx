@@ -3,6 +3,7 @@ import Section from "../../components/ui/Section";
 import Card from "../../components/ui/Card";
 import Badge from "../../components/ui/Badge";
 import { BookOpen, Award, Users, Clock } from "lucide-react";
+import { motion } from "framer-motion";
 
 const HalaCampus = () => {
   const programs = [
@@ -60,42 +61,64 @@ const HalaCampus = () => {
           description="Our Hala Campus provides quality education at the FSc, FA, and ICS levels, preparing students for higher education and professional success."
         />
         <div className="grid md:grid-cols-2 gap-8">
-          <Card>
-            <h3 className="text-xl font-bold mb-4">Vision</h3>
-            <p className="text-gray-600">
-              To be a leading intermediate institution fostering academic
-              excellence and personal growth.
-            </p>
-          </Card>
-          <Card>
-            <h3 className="text-xl font-bold mb-4">Mission</h3>
-            <p className="text-gray-600">
-              To provide quality intermediate education and prepare students for
-              successful careers and higher education.
-            </p>
-          </Card>
+          <motion.div
+            initial={{ opacity: 0, x: -30 }}
+            whileInView={{ opacity: 1, x: 0 }}
+            transition={{ duration: 0.6 }}
+            viewport={{ once: true }}
+          >
+            <Card>
+              <h3 className="text-xl font-bold mb-4">Vision</h3>
+              <p className="text-gray-600">
+                To be a leading intermediate institution fostering academic
+                excellence and personal growth.
+              </p>
+            </Card>
+          </motion.div>
+          <motion.div
+            initial={{ opacity: 0, x: 30 }}
+            whileInView={{ opacity: 1, x: 0 }}
+            transition={{ duration: 0.6, delay: 0.2 }}
+            viewport={{ once: true }}
+          >
+            <Card>
+              <h3 className="text-xl font-bold mb-4">Mission</h3>
+              <p className="text-gray-600">
+                To provide quality intermediate education and prepare students
+                for successful careers and higher education.
+              </p>
+            </Card>
+          </motion.div>
         </div>
       </Section>
 
       <Section className="bg-gray-50">
         <Section.Header title="Our Programs" />
         <div className="grid md:grid-cols-2 gap-8">
-          {programs.map((program) => (
-            <Card key={program.title}>
-              <Award className="w-12 h-12 text-blue-600 mb-4" />
-              <h3 className="text-xl font-bold mb-2">{program.title}</h3>
-              <p className="text-gray-600 mb-4">{program.description}</p>
-              <div className="flex flex-wrap gap-2">
-                <Badge>
-                  <Clock className="w-4 h-4 mr-1" />
-                  {program.duration}
-                </Badge>
-                <Badge>
-                  <Users className="w-4 h-4 mr-1" />
-                  {program.seats} seats
-                </Badge>
-              </div>
-            </Card>
+          {programs.map((program, idx) => (
+            <motion.div
+              key={program.title}
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.5, delay: idx * 0.1 }}
+              viewport={{ once: true }}
+            >
+              <Card>
+                <Award className="w-12 h-12 text-blue-600 mb-4" />
+                <h3 className="text-xl font-bold mb-2">{program.title}</h3>
+                <p className="text-gray-600 mb-4">{program.description}</p>
+                <div className="flex flex-wrap gap-2">
+                  <Badge>
+                    <Clock className="w-4 h-4 mr-1" />
+                    {program.duration}
+                  </Badge>
+                  <Badge>
+                    <Users className="w-4 h-4 mr-1" />
+                    {program.seats} seats
+                  </Badge>
+                </div>
+              </Card>
+            </motion.div>
           ))}
         </div>
       </Section>

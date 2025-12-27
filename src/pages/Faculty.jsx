@@ -4,6 +4,7 @@ import Card from "../components/ui/Card";
 import Button from "../components/ui/Button";
 import Badge from "../components/ui/Badge";
 import Hero from "../components/ui/Hero";
+import { motion } from "framer-motion";
 
 const Faculty = () => {
   const [activeTab, setActiveTab] = useState("all");
@@ -112,30 +113,38 @@ const Faculty = () => {
 
       <Section spacing="large">
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-          {filteredFaculty.map((faculty) => (
-            <Card key={faculty.name} hover className="h-full">
-              <img
-                src={faculty.image}
-                alt={faculty.name}
-                className="w-full h-64 object-cover rounded-t-lg"
-              />
-              <Card.Body>
-                <h3 className="text-xl font-bold mb-2">{faculty.name}</h3>
-                <Badge variant="primary" className="mb-2">
-                  {faculty.designation}
-                </Badge>
-                <p className="text-gray-600 mb-1">{faculty.subject}</p>
-                <p className="text-sm text-gray-500">{faculty.education}</p>
-              </Card.Body>
-              <Card.Footer>
-                <p className="text-sm text-gray-600 flex items-center justify-between">
-                  <span>Department of </span>
-                  <Badge variant="info" size="sm">
-                    {faculty.department}
+          {filteredFaculty.map((faculty, idx) => (
+            <motion.div
+              key={faculty.name}
+              initial={{ opacity: 0, scale: 0.9 }}
+              whileInView={{ opacity: 1, scale: 1 }}
+              transition={{ duration: 0.5, delay: idx * 0.1 }}
+              viewport={{ once: true }}
+            >
+              <Card hover className="h-full">
+                <img
+                  src={faculty.image}
+                  alt={faculty.name}
+                  className="w-full h-64 object-cover rounded-t-lg"
+                />
+                <Card.Body>
+                  <h3 className="text-xl font-bold mb-2">{faculty.name}</h3>
+                  <Badge variant="primary" className="mb-2">
+                    {faculty.designation}
                   </Badge>
-                </p>
-              </Card.Footer>
-            </Card>
+                  <p className="text-gray-600 mb-1">{faculty.subject}</p>
+                  <p className="text-sm text-gray-500">{faculty.education}</p>
+                </Card.Body>
+                <Card.Footer>
+                  <p className="text-sm text-gray-600 flex items-center justify-between">
+                    <span>Department of </span>
+                    <Badge variant="info" size="sm">
+                      {faculty.department}
+                    </Badge>
+                  </p>
+                </Card.Footer>
+              </Card>
+            </motion.div>
           ))}
         </div>
       </Section>

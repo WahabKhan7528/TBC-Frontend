@@ -1,4 +1,5 @@
 import { MapPin, Phone, Mail, Clock } from "lucide-react";
+import { motion } from "framer-motion";
 
 const Contact = () => {
   const contactInfo = [
@@ -46,9 +47,13 @@ const Contact = () => {
       <section className="py-16 bg-white">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
-            {contactInfo.map((info) => (
-              <div
+            {contactInfo.map((info, idx) => (
+              <motion.div
                 key={info.title}
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.5, delay: idx * 0.1 }}
+                viewport={{ once: true }}
                 className="text-center p-6 rounded-lg border border-gray-200"
               >
                 <div className="inline-flex items-center justify-center w-12 h-12 rounded-full bg-blue-100 text-blue-600 mb-4">
@@ -62,7 +67,7 @@ const Contact = () => {
                     </p>
                   ))}
                 </div>
-              </div>
+              </motion.div>
             ))}
           </div>
         </div>
@@ -73,7 +78,13 @@ const Contact = () => {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-12">
             {/* Contact Form */}
-            <div className="bg-white rounded-lg shadow-sm p-8">
+            <motion.div
+              initial={{ opacity: 0, x: -30 }}
+              whileInView={{ opacity: 1, x: 0 }}
+              transition={{ duration: 0.6 }}
+              viewport={{ once: true }}
+              className="bg-white rounded-lg shadow-sm p-8"
+            >
               <h2 className="text-2xl font-bold mb-6">Send us a Message</h2>
               <form className="space-y-6">
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
@@ -128,10 +139,16 @@ const Contact = () => {
                   Send Message
                 </button>
               </form>
-            </div>
+            </motion.div>
 
             {/* Map */}
-            <div className="bg-white rounded-lg shadow-sm p-8">
+            <motion.div
+              initial={{ opacity: 0, x: 30 }}
+              whileInView={{ opacity: 1, x: 0 }}
+              transition={{ duration: 0.6, delay: 0.2 }}
+              viewport={{ once: true }}
+              className="bg-white rounded-lg shadow-sm p-8"
+            >
               <h2 className="text-2xl font-bold mb-6">Our Location</h2>
               <div className="h-[400px] bg-gray-200 rounded-lg">
                 {/* Replace with actual map implementation */}
@@ -139,7 +156,7 @@ const Contact = () => {
                   <p>Interactive Map Placeholder</p>
                 </div>
               </div>
-            </div>
+            </motion.div>
           </div>
         </div>
       </section>
@@ -152,7 +169,13 @@ const Contact = () => {
           </h2>
           <div className="space-y-6">
             {/* Add FAQ items here if needed */}
-            <div className="bg-white rounded-lg shadow-sm p-6">
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.5 }}
+              viewport={{ once: true }}
+              className="bg-white rounded-lg shadow-sm p-6"
+            >
               <h3 className="text-lg font-bold mb-2">
                 What are the admission requirements?
               </h3>
@@ -160,8 +183,14 @@ const Contact = () => {
                 Please visit our Admissions page for detailed information about
                 requirements for each program.
               </p>
-            </div>
-            <div className="bg-white rounded-lg shadow-sm p-6">
+            </motion.div>
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.5, delay: 0.1 }}
+              viewport={{ once: true }}
+              className="bg-white rounded-lg shadow-sm p-6"
+            >
               <h3 className="text-lg font-bold mb-2">
                 How can I apply for admission?
               </h3>
@@ -169,7 +198,7 @@ const Contact = () => {
                 You can apply online through our admissions portal or visit our
                 campus for in-person application submission.
               </p>
-            </div>
+            </motion.div>
           </div>
         </div>
       </section>
